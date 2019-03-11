@@ -1,6 +1,6 @@
 import org.apache.spark.{SparkConf, SparkContext}
 
-class AirportRank extends Serializable {
+object AirportRank extends Serializable {
 
   def main(args: Array[String]): Unit = {
 
