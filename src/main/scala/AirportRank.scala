@@ -1,6 +1,6 @@
 import org.apache.spark.{SparkConf, SparkContext}
 
-object AirportRank extends Serializable {
+object AirportRank {
 
   def main(args: Array[String]): Unit = {
 
@@ -13,7 +13,10 @@ object AirportRank extends Serializable {
     val iterations = args(1).toInt
     val outputDir = args(2)
 
-    val conf = new SparkConf().setAppName("MoviePlot")
+    val conf = new SparkConf()
+      .setAppName("AirportRank")
+      .setMaster("local") // remove when running on a Spark cluster
+
     val sc = new SparkContext(conf)
 
     // Accept datafile as argument from user and create RDD from it
@@ -50,6 +53,9 @@ object AirportRank extends Serializable {
 
     // Save output to file
     output.saveAsTextFile(outputDir)
+
+    // display output
+    sc.textFile(outputDir + "/part-*").collect().foreach(println)
 
   }
 
